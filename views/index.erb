@@ -2,10 +2,30 @@
   <head>
     <meta charset="utf-8">
     <title>Web Guesser</title>
+    <style>
+    body {
+      background: <%= color %>;
+    }
+    </style>
   </head>
   <body>
+    <% if guess.to_i == secret_number || guess == "cheat" || params["cheat"] %>
+      <p>The SECRET NUMBER is <%= secret_number %></p>
+    <form method="post">
+      <input type ='submit' value='New Game!' />
+    </form>
+        <% end %>
     <p>
-      "The SECRET NUMBER is <%= secret_number %>"
+      <h1>
+        "<%= title %>"
+      </h1>
     </p>
+      <p> "<%= guesses_left %>" </p>
+    <p> "<%= message %>" </p>
+    <form>
+      <input type='text' name='guess' />
+      <input type='submit' value='Guess!' />
+      <input type='hidden' value='false' name ='cheat' />
+    </form>
   </body>
 </html>
