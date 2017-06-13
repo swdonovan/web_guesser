@@ -7,7 +7,7 @@ set :secret_number, rand(100)
 
 get '/' do
   guessed_times
-  guess = params["guess"] unless params["cheat"]
+  guess = params["guess"] unless params["cheat"] == 'true'
   message = check_guess(guess)
   color = background_color(message)
   title = title_check(message)
@@ -30,7 +30,7 @@ def guessed_times
     @@times_guessed = 5
     "You have a new number to guess"
   else
-    "You have #{@@times_guessed} guess left to guess correctly"
+    "You have #{@@times_guessed} guesses left to guess correctly"
   end
 end
 
@@ -41,7 +41,7 @@ def title_check(message)
 end
 
 def check_guess(guess, numb = settings.secret_number)
-  msg = "" if guess == nil
+  msg = "HI!" if guess == nil || guess == "cheat"
   msg = to_high(guess, numb) if guess.to_i > numb
   msg = to_low(guess, numb) if guess.to_i < numb && guess.to_i != 0
   msg = "You got it right!" if guess.to_i == numb
@@ -64,7 +64,7 @@ def to_low(guess, secret_number)
 end
 
 def background_color(message)
-  color = "#3d4dff" if message == ""
+  color = "#3d4dff" if message == "HI!" || message == "cheat"
   color = "#f74545" if message.split.include?("WAY")
   color = "#efb3b3" if message.split.include?("little")
   color = "#81ff3d" if message.split.include?("right!")

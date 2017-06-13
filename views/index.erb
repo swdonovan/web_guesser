@@ -9,23 +9,29 @@
     </style>
   </head>
   <body>
-    <% if guess.to_i == secret_number || guess == "cheat" || params["cheat"] %>
+    <% if guess.to_i == secret_number || params["cheat"] == 'true' %>
       <p>The SECRET NUMBER is <%= secret_number %></p>
     <form method="post">
       <input type ='submit' value='New Game!' />
     </form>
         <% end %>
-    <p>
+    <p class="title">
+      <% unless params['cheat'] == 'true' %>
       <h1>
         "<%= title %>"
       </h1>
     </p>
       <p> "<%= guesses_left %>" </p>
-    <p> "<%= message %>" </p>
+    <p>
+      <h3>
+      "<%= message %>"
+      </h3>
+    </p>
     <form>
       <input type='text' name='guess' />
       <input type='submit' value='Guess!' />
-      <input type='hidden' value='false' name ='cheat' />
+      <input type='hidden' value='false'  name ='cheat' />
     </form>
+    <% end %>
   </body>
 </html>
